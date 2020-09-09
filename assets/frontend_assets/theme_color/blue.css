@@ -1,0 +1,68 @@
+.header-top-area {
+    background-color: #4990E2;
+}
+.socials-link ul li a {
+    color: #4990E2;
+}
+.logo a {
+  color: #4990E2;
+}
+.logo h3 {
+  border: 2px solid #4990E2;
+}
+.main-menu ul > li.active > a, .main-menu ul li a:hover {
+  background-color: #4990E2;
+}
+a.dream-btn {
+    background-color: #4990E2;
+}
+.dream-btn.fill-slide-btn {
+  border: 1px solid #4990E2;
+}
+.dream-btn.border-slide-btn {
+  border: 1px solid #4990E2;
+}
+.dream-btn.border-slide-btn:hover {
+    background-color: #4990E2;
+}
+
+.dream-slide-section .owl-nav div {
+  border: 1px solid #4990E2;
+  background-color: #4990E2;
+}
+.dream-slide-section .owl-nav div:hover {
+    color: #4990E2;
+}
+.project-category ul li {
+  border: 2px solid #4990E2;
+  color: #4990E2;
+}
+.project-category ul li.active {
+    background-color: #4990E2;
+}
+.project-category ul li:hover {
+    background-color: #4990E2;
+}
+.project-details::before {
+    background-color: #4990E2;
+}
+
+.footer-widget a:hover {
+    color: #4990E2;
+}
+.footer-socials-link ul li a {
+  color: #4990E2;
+}
+.footer-socials-link ul li a:hover {
+  background-color: #4990E2;
+}
+.section-title h2:after {
+  background-color: #4990E2;
+}
+.section-title h2::before {
+  border: 3px solid #4990E2;
+}
+.contact-form input[type="submit"] {
+  background-color: #4990E2;
+} 
+

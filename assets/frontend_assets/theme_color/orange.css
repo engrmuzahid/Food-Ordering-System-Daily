@@ -1,0 +1,68 @@
+.header-top-area {
+    background-color: #FFA500;
+}
+.socials-link ul li a {
+    color: #FFA500;
+}
+.logo a {
+  color: #FFA500;
+}
+.logo h3 {
+  border: 2px solid #FFA500;
+}
+.main-menu ul > li.active > a, .main-menu ul li a:hover {
+  background-color: #FFA500;
+}
+a.dream-btn {
+    background-color: #FFA500;
+}
+.dream-btn.fill-slide-btn {
+  border: 1px solid #FFA500;
+}
+.dream-btn.border-slide-btn {
+  border: 1px solid #FFA500;
+}
+.dream-btn.border-slide-btn:hover {
+    background-color: #FFA500;
+}
+
+.dream-slide-section .owl-nav div {
+  border: 1px solid #FFA500;
+  background-color: #FFA500;
+}
+.dream-slide-section .owl-nav div:hover {
+    color: #FFA500;
+}
+.project-category ul li {
+  border: 2px solid #FFA500;
+  color: #FFA500;
+}
+.project-category ul li.active {
+    background-color: #FFA500;
+}
+.project-category ul li:hover {
+    background-color: #FFA500;
+}
+.project-details::before {
+    background-color: #FFA500;
+}
+
+.footer-widget a:hover {
+    color: #FFA500;
+}
+.footer-socials-link ul li a {
+  color: #FFA500;
+}
+.footer-socials-link ul li a:hover {
+  background-color: #FFA500;
+}
+.section-title h2:after {
+  background-color: #FFA500;
+}
+.section-title h2::before {
+  border: 3px solid #FFA500;
+}
+.contact-form input[type="submit"] {
+  background-color: #FFA500;
+}
+
