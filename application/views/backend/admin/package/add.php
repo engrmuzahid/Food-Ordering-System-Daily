@@ -51,10 +51,10 @@
                     <input type="text"  class="form-control" value="" name="sort_order" >
                 </div>
                  <div class="form-group">
-                    <label >Status</label>
+                    <label >Package Type</label>
                     <select class="form-control" name="status">
-                        <option>YES</option>
-                        <option>NO</option>
+                        <option value="YES">Ones in a week</option>
+                        <option value="NO">Everyday</option>
                     </select>
                    <!--  <input type="text"  class="form-control" value="" name="status" > -->
                 </div>

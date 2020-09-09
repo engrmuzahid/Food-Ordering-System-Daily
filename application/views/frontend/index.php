@@ -53,13 +53,16 @@
 <!--about us section end-->
 
 <!--food alergy section start-->
-<section class="food-alergy-section section-padding wow fadeInUp" id="food_alergy_section">
+<section class="food-alergy-section section-padding wow fadeInUp">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="food-alergy-thumb text-left w-100 wow slideInLeft">
-                    <img  style="box-shadow: 0 0 10px #999; border: 2px solid var(--theme-color);" src="<?php echo base_url();?>/assets/images/food_alergy_1.jpg" alt="">
-                </div>
+            <div class="col-md-6 col-sm-6 col-md-offset-3">
+                <div class="food-alergy-thumb text-center w-100 wow slideInLeft">
+                
+                    <video height="350" autoplay>
+                    <source src="<?= base_url(); ?>assets/videos/video.mp4" type="video/mp4"> 
+                    </video>
+                       </div>
             </div>
             </div>
         </div>
@@ -75,7 +78,7 @@
             <div class="row">
                 <div class="col-12" style="margin-bottom: -25px;">
                     <div class="section-title text-center wow fadeInDown">
-                        <h1>our packages</h1>
+                        <h1>Our Menu</h1>
                     </div>
                 </div>
             </div>
@@ -203,6 +206,150 @@
                                 </div> 
                                 <input type="hidden" id="package_price_<?php echo $inc++; ?>" name="Cart[package_price]" value="<?php echo $package_price; ?>"/>
                                               <input type="hidden"   name="Cart[deliveryTime]" value="<?php echo  date("Y-m-d ", strtotime($KEY)); ?>11.00"/>
+    
+                            </form>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+        </div>
+    </section>
+<?php endif; ?>
+<!--menu item list section start-->
+<?php if (!empty($extra_packages)) : ?>
+    <section class="package-section section-padding" id="package_section">
+        <div class="overlay-bg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12" style="margin-bottom: -25px;">
+                    <div class="section-title text-center wow fadeInDown">
+                        <h1>Extra Menu</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+            <?php
+                $inc = 100;
+                foreach ($extra_packages as $KEY=>$package) :
+                    $package_price = $package->package_price;
+                     
+
+                    $avail_date = date("Ymd", strtotime("NOW"));
+                    ?>
+                    <div class="col-lg-4 col-sm-6" style="margin-top: 25px;">
+                        <div class="package-item">
+                            <form method="POST" action="<?php echo site_url('site/save_order_items'); ?>" id="package_add_form_<?php echo $inc; ?>">
+                             <input type="hidden" name="Cart[id]" value="<?php echo $package->package_id; ?>"/> 
+                                <input type="hidden" name="Cart[package_id]" value="<?php echo $package->package_id; ?>"/>
+                                <input type="hidden" name="Cart[package_name]" value="<?php echo $package->package_name; ?>"/>
+                                <div class="text-center wow fadeInLeft">
+                                    <div class="day-title">
+                                        <a href="<?php echo site_url('Site/package_details'); ?>?id=<?php echo $package->package_id; ?>">
+                                            <h3>
+                                                <?php echo $package->package_name; ?> <i class="fa fa-angle-right pl-2"></i>
+                                            </h3>
+                               
+                                        </a>
+                                    </div>
+                                    <div class="wrapper">
+                                       
+                                        <div class="brif">
+                                            <?php echo "<p>" . $package->description . ' <span style="color: var(--theme-color); font-weight: 600;font-size: 16px">Approx Calories '. $package->calories.'</span>'."</p>" ?>
+                                        </div>
+                                        <hr>
+                                        <div class="menu-list">
+                                            <?php ?>
+                                            <?php foreach ($package->items as $item): 
+                                                $package_price += $item->extra_price;
+                                                ?>
+                                                <input type="hidden" name="Cart[package_items][<?php echo $item->item_id; ?>][name]" value="<?php echo $item->item_name; ?>"/>
+                                                <input type="hidden" name="Cart[package_items][<?php echo $item->item_id; ?>][has_option]" value="<?php echo $item->has_option; ?>"/>
+                                                <div class="item-common-style">
+                                                <?php $item_des=$this->db->where('name',$item->item_name)->get('item')->row(); ?>
+                                                    <?php if (strtoupper($item->has_option) == "YES"): ?>
+                                                        
+                                                            <div class="form-group">
+                                                                    <?php 
+                                                                    echo "<p class='col-6 pull-left'>" . '<i class="fa fa-square"></i> ' . $item->item_name . "</p>"; 
+                                                                     ?>
+                                                                
+                                                                <!-- <i class='fa fa-square'></i> -->
+                                                                <div class="col-6 pull-right">
+                                                                <select class="form-control option_<?php echo $inc; ?>" required  name="Cart[package_items][<?php echo $item->item_id; ?>][option_name]" >
+                                                                   <option value="">Select</option>
+                                                                   <?php foreach($options[$item->item_id] as $option): ?>
+                                                                        <option value="<?php echo $option->name; ?>"><?php echo $option->name; ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                         <?php echo "<p class='made-element'>".$item_des->description."</p>";?>
+                                                        <hr>
+                                                        <?php
+                                                    else:
+                                                        
+                                                        echo "<p>" . '<i class="fa fa-check"></i> ' . $item->item_name . "</p>";
+                                                        echo "<p class='made-element'>".$item_des->description."</p>";
+                                                        echo "<hr>";
+                                                    endif;
+                                                    ?>
+                                                </div>
+                                            <?php endforeach; ?>
+                                                
+                                                <div class="clearfix"></div>
+                                            <div class="form-group">
+                                                <div class="col-6 pull-left">
+                                                    Quantity  
+                                                </div>
+                                                <div class="col-6 pull-right">
+                                                <select class="form-control"  name="Cart[qty]" >
+                                                    <option value="1"> 01 </option>
+                                                    <option value="2"> 02 </option>
+                                                    <option value="3"> 03 </option>
+                                                    <option value="4"> 04 </option>
+                                                    <option value="5"> 05 </option>
+                                                    <option value="6"> 06 </option>
+                                                    <option value="7"> 07 </option>
+                                                    <option value="8"> 08 </option>
+                                                    <option value="9"> 09 </option>
+                                                    <option value="10"> 10 </option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                                
+                                                 <div class="clearfix"></div>
+                                                <hr/>
+                                            <!-- <div class="form-group">
+                                                <div class="col-6 pull-left">
+                                                    Delivery Time  
+                                                </div>
+                                                <div class="col-6 pull-right">
+                                                <select class="form-control"  name="Cart[deliveryTime]" >
+                                                    <option value="<?php echo  date("Y-m-d ", strtotime($KEY)); ?>11.00"> 11.00AM </option>
+                                                    <option value="<?php echo  date("Y-m-d ", strtotime($KEY)); ?>12.00"> 12.00PM </option>
+                                                    <option value="<?php echo  date("Y-m-d ", strtotime($KEY)); ?>01.00"> 01.00PM </option>
+                                                    <option value="<?php echo  date("Y-m-d ", strtotime($KEY)); ?>02.00"> 02.00PM </option>
+                                                    <option value="<?php echo  date("Y-m-d ", strtotime($KEY)); ?>03.00"> 03.00PM </option>
+                                                </select>
+                                                </div>
+                                            </div> -->
+                                                <div class="clearfix"></div>
+                                                <hr/>
+                                            <div class="package-price">
+                                                <p>price: £<span id="package_price_show_<?php echo $inc; ?>"><?php echo number_format($package_price, 2); ?></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cart-add"> 
+                                        <a href="#" class="add-to-cart-btn" data-id="<?php echo $inc; ?>">add to cart</a>
+                                        
+                                    </div>
+                                </div> 
+                                <input type="hidden" id="package_price_<?php echo $inc++; ?>" name="Cart[package_price]" value="<?php echo $package_price; ?>"/>
+                                              <input type="hidden"   name="Cart[deliveryTime]" value="<?php echo  date("Y-m-d ", strtotime("NOW")); ?>11.00"/>
     
                             </form>
                         </div>

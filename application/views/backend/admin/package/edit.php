@@ -52,12 +52,12 @@
                     <input type="number"  class="form-control" value="<?= $package->sort_order; ?>" name="sort_order" required="">
                 </div>
                 <div class="form-group">
-                    <label >Status</label>
-                    <?php $selected=$package->status;?>
+                    <label >Package Type</label> 
                 <select name="status" class="form-control">
-                    <option <?php if($selected == 'YES') { echo "selected"; } ?> value="YES">YES</option>
-                    <option <?php if($selected == 'NO') { echo "selected"; } ?> value="NO">NO</option>
+                    <option <?php if($package->status == 'YES') { echo "selected"; } ?> value="YES">Ones in a week</option>
+                    <option <?php if($package->status == 'NO') { echo "selected"; } ?> value="NO">Everyday</option>
                 </select>
+                
                 </div>
                 <button type="submit" class="btn btn-success">Update</button>
             </div>

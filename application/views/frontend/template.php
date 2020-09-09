@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -172,6 +172,7 @@ section.top-bar-section {
                         <li><a href="<?php echo base_url();?>#slider_section">Home</a></li>
                         <li><a href="<?php echo base_url();?>#about_us_section">About Us</a></li>
                         <li><a href="<?php echo base_url();?>#package_section">Our Menu</a></li>
+                        <li><a href="<?php echo site_url('Site/download'); ?>">Download</a></li>
                         <li><a href="<?php echo base_url();?>#post_2_setion">FAQ</a></li>
                         <li><a href="<?php echo base_url();?>#contact_us_section">Contact Us</a></li>
                     </ul>

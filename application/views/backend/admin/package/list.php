@@ -12,11 +12,10 @@
                     <th>Serial</th>
                     <th>Package Name</th>
                     <th>Package Price</th>
-                    <th>Package Description</th>
-                    <th>Default Day</th>
+                    <th>Package Description</th> 
                     <th>Calories</th>
                     <th>Sort Order</th>
-                    <th>Status</th>
+                    <th>Type</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -31,11 +30,10 @@
                     <td><?=$Serial?></td>
                     <td><?=$row->package_name ?></td>
                     <td><?=number_format($row->package_price,2);?></td>
-                    <td><?=$row->description ?></td>
-                    <td><?=$row->default_day ?></td>
+                    <td><?=$row->description ?></td> 
                     <td><?=$row->calories ?></td>
                     <td><?=$row->sort_order ?></td>
-                    <td><?=$row->status ?></td>
+                    <td><?=$row->status=="YES"?"Ones in a week":"Everyday"; ?></td>
                     <td class="text-center">
                         <ul class="icons-list">
                             <li class="dropdown">

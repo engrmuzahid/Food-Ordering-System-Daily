@@ -34,6 +34,19 @@ class Site extends CI_Controller {
         }
         }
         ksort($data['packages']);
+        $extra_packages= $this->db->select("*")->where('status', 'NO')->get('packages')->result();
+        $i =9;
+        foreach ($packages as $row) {
+            
+             $data['extra_packages'][$i]  = $row;
+             $data['extra_packages'][$i]->items = $this->db->select('package_items.*, item.has_option')->from("package_items")->join('item', 'item.id=package_items.item_id')->where(array('package_id' => $row->package_id))->order_by('package_items.sort_order','DESC')->get()->result();
+             foreach ($data['extra_packages'][$i]->items as $item) {
+                 if (strtoupper($item->has_option) == "YES") {
+                     $data['options'][$item->item_id] = $this->db->select('*')->from("item_option")->where(array("item_id" => $item->item_id))->get()->result();
+                 }
+             }
+       
+         }
         //echo "<pre>"; print_r($data['packages']); echo "</pre>"; exit();
         $data['top_cart'] = $this->cart_total();
         $data['main_content'] = 'frontend/index';
@@ -78,6 +91,12 @@ class Site extends CI_Controller {
         $data['settings'] = $this->Common->get_single_row_information('settings', 'id', 1);
         $data['top_cart'] = $this->cart_total();
         $data['main_content'] = 'frontend/cart_view';
+        $this->load->view('frontend/template', $data);
+    }
+    public function download() {
+        $data['settings'] = $this->Common->get_single_row_information('settings', 'id', 1);
+        $data['top_cart'] = $this->cart_total();
+        $data['main_content'] = 'frontend/download';
         $this->load->view('frontend/template', $data);
     }
     public function privacypolicy()
@@ -175,15 +194,15 @@ class Site extends CI_Controller {
             $cart = array($_order);
             $this->session->set_userdata('cart', serialize($cart));
         } else {
-          //  $index = $this->find_index($_order['id']);
+          $index = $this->find_index($_order['id']);
             $cart = array_values(unserialize($this->session->userdata('cart')));
-          //  if ($index == -1) {
+          if ($index == -1) {
                 array_push($cart, $_order);
                 $this->session->set_userdata('cart', serialize($cart));
-            //} else {
-              //  $cart[$index]['qty'] += $_order['qty'];
-                //$this->session->set_userdata('cart', serialize($cart));
-            //}
+            } else {
+                $cart[$index]['qty'] += $_order['qty'];
+                $this->session->set_userdata('cart', serialize($cart));
+            }
         }
         return $this->cart_total(true);
     }
@@ -234,10 +253,10 @@ class Site extends CI_Controller {
 
     public function checkout() {
        // $this->session->unset_userdata('cart');
-//        $session_cart = json_encode(array_values(unserialize($this->session->userdata('cart'))));
-//        $cart =(array)json_decode($session_cart);
-//        print_r($cart);
-//        exit();
+    //   $session_cart = json_encode(array_values(unserialize($this->session->userdata('cart'))));
+    //     $cart =(array)json_decode($session_cart);
+    //     print_r($cart);
+    //     exit();
         $data['delivery_address'] = $this->db->get('delivery_address')->result();
         if (null == $this->session->userdata('cart')) {
             $this->session->set_flashdata('message', 'Please, add some products in your cart.');
@@ -255,22 +274,21 @@ class Site extends CI_Controller {
     public function checkout_process() {
         $data['settings'] = $this->db->where('id', 1)->get('settings')->row();
         $f_name = trim($this->input->post('f_name'));
-        $l_name = trim($this->input->post('l_name'));
+       // $l_name = trim($this->input->post('l_name'));
         $email = trim($this->input->post('email'));
         $phone = trim($this->input->post('phone'));
         $house = trim($this->input->post('house'));
-        $street = trim($this->input->post('street'));
-        $city = trim($this->input->post('city'));
+        $street = trim($this->input->post('street')); 
         $postcode = trim($this->input->post('postcode'));
         $payment_method = $this->input->post('payment_method');
 
         if (!$f_name || !$email || !$phone || !$payment_method) {
             redirect('Site/checkout');
         }
-        $address = 'House: '.$house.', Street: '.$street.', City: '.$city.', Postcode: '.$postcode;
+        $address = 'House: '.$house.', Street: '.$street.', Postcode: '.$postcode;
         $customer_data = array(
             'f_name' => $f_name,
-            'l_name' => $l_name,
+            'l_name' => "",
             'email' => $email,
             'phone' => $phone,
             'address' => $address,

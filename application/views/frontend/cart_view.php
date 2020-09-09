@@ -77,23 +77,22 @@ only screen and (max-width: 760px),
                         <thead style="background: var(--theme-color);color: #ffffff;">
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">package name</th>
-                            <th scope="col">items</th>
+                            <th scope="col">Items</th>
+                            <th scope="col">Quantity</th>
                             <th scope="col">price</th>
                             <th scope="col">sub total</th>
-                            <th scope="col">Dismiss</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
-                        <tbody>
-                 <!-------------- PHP code ----------------->
+                        <tbody> 
                         <?php 
                             if(null!==$this->session->userdata('cart')){
                                 $cart = array_values(unserialize($this->session->userdata('cart')));
                               //  $cart1=$cart;
                                 for ($i = 0; $i < count($cart); $i ++) {
-                                    echo "<pre>";
-                                   // print_r($cart[$i]);
-                                    echo "</pre>";
+                                    //     echo "<pre>";
+                                    //     print_r($cart[$i]);
+                                    //     echo "</pre>";
                                     //exit();
                                     $package_id=$cart[$i]['package_id'];
                                     $package_name=$cart[$i]['package_name'];
@@ -107,16 +106,7 @@ only screen and (max-width: 760px),
                             <td>
                                 <div data-toggle="collapse" data-target="#<?php echo $package_name; ?>">
                                     <p style="cursor:pointer;margin-bottom: 0;"><?php echo $package_name; ?></p>
-                                    <div id="<?php echo $package_name; ?>" class="collapse selected-package-items">
-                                       <!-- <ul>
-                                            <li>rice</li>
-                                            <li>fried rice</li>
-                                            <li>egg</li>
-                                            <li>vegetable</li>
-                                            <li>fish</li>
-                                            <li>beef</li>
-                                        </ul>-->
-                                    </div>
+                                   
                                 </div>
                             </td>
                             <td> <?php echo $qty; ?>   </td>

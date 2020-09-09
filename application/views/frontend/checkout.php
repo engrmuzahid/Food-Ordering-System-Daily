@@ -215,65 +215,49 @@ if (null !== $this->session->userdata('cart')) {
                             <div class="col-md-6">
                                 <div class="form-group form-custom-style">
                                     <label for="f_name">First Name *</label>
-                                    <input type="text" class="form-control" name="f_name" id="f_name"
-                                           placeholder="Ex: John" required="">
+                                    <input type="text" class="form-control" name="f_name" id="f_name" required="">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group form-custom-style">
+                                <!-- <div class="form-group form-custom-style">
                                     <label for="l_name">Last Name</label>
                                     <input type="text" class="form-control" name="l_name" id="l_name"
-                                           placeholder="Ex: Doe">
+                                           placeholder="eg: Doe">
+                                </div> -->
+                                <div class="form-group form-custom-style">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="text" class="form-control" name="phone" id="phone" required="">
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="useremail">Email Address *</label>
-                                    <input type="email" class="form-control" id="useremail"
-                                           placeholder="Ex: example@gmail.com" name="email" required="">
+                                    <input type="email" class="form-control" id="useremail"  name="email" required="">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group form-custom-style">
-                                    <label for="phone">Phone Number *</label>
-                                    <input type="text" class="form-control" name="phone" id="phone"
-                                           placeholder="Ex: +4401739852881" required="">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
+                            <div class="form-group">
                                     <label for="house">House *</label>
-                                    <input type="text" class="form-control" id="house"
-                                           placeholder="Ex: 12" name="house" required="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group form-custom-style">
-                                    <label for="street">Street *</label>
-                                    <input type="text" class="form-control" name="street" id="street"
-                                           placeholder="Ex: Whickham North Ward"  required="">
+                                    <input type="text" class="form-control text_required" id="house" name="house" required="">
                                 </div>
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="city">City *</label>
-                                    <input type="text" class="form-control" id="city"
-                                           placeholder="Ex: Gateshead District (B)" name="city" required="">
+                               <div class="form-group form-custom-style">
+                                    <label for="street">Street *</label>
+                                    <input type="text" class="form-control text_required" name="street" id="street"  required="">
                                 </div>
-                            </div>
+                            </div> 
                             <div class="col-md-6">
                                 <div class="form-group form-custom-style">
                                     <label for="postcode">Postcode *</label>
-                                    <input type="text" class="form-control" name="postcode" id="postcode"
-                                           placeholder="Ex: NE163Bp"  required="">
+                                    <input type="text" class="form-control" name="postcode" id="postcode"  required="">
+                                <span id="postcodeError"> </span>
                                 </div>
                             </div>
                         </div>
@@ -283,8 +267,8 @@ if (null !== $this->session->userdata('cart')) {
                  
                          <div class="col-md-12">
                                 <div class="form-group form-custom-style">
-                                    <label for="phone">Leave A Note For The Order</label>
-                                    <textarea class="form-control" name="comments"  placeholder="e.g. please do not ring the doorbell." style="min-height: 120px;"></textarea>
+                                    <label for="phone">Leave a note for the order</label>
+                                    <textarea class="form-control" name="comments"       style="min-height: 120px;"></textarea>
                                 </div>
                             </div>
                             </div>
@@ -445,7 +429,26 @@ if (null !== $this->session->userdata('cart')) {
 </section>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
+ var postcodeArea = ['sr1','sr2','sr3','sr4','sr5','sr6']
+ 
 
+function postcodeAreaSearch(item) {
+    var address = $('#postcode').val(); 
+    console.log(item);  
+    
+    var returnValue = false;
+  if(address.substring(0, 3).toLowerCase() == item){
+    console.log("item "+ address.substring(0, 3));  
+    console.log("item "+ item);  
+    returnValue = true;
+  }
+  return returnValue;
+}
+ function checkPostcode() {
+
+   return postcodeArea.find(postcodeAreaSearch); 
+}
+     
     function fromValidation() {
         var valid = true;
         var valid1 = true;
@@ -453,7 +456,7 @@ if (null !== $this->session->userdata('cart')) {
         var lname = $('#l_name').val();
         var email = $('#useremail').val();
         var phone = $('#phone').val();
-        var address = $('#address').val();
+        var address = $('#postcode').val();
         $("#error-message-div").html("").hide();
         $("#error-email-div").html("").hide();
 
@@ -485,12 +488,38 @@ if (null !== $this->session->userdata('cart')) {
         } else {
             $('#phone').removeClass('input_error');
         }
-        if (address.trim() == "") {
+
+        if (address.trim() == "") 
+        {
             valid = false;
-            $('#address').addClass('input_error');
+            $('#postcode').addClass('input_error');
         } else {
-            $('#address').removeClass('input_error');
+
+         if (!checkPostcode()) 
+        {
+            valid = false;
+            $('#postcode').addClass('input_error');
+            $('#postcodeError').html("Postcode Invalid."); 
+
+        }else{
+            $('#postcode').removeClass('input_error');
+            $('#postcodeError').html(""); 
         }
+         
+        }
+      
+        $(".text_required" ).each(function( index ) {
+
+            if ($(this).val().trim() == "") {
+                valid = false;
+                $(this).addClass('input_error');
+            } else {
+                $(this).removeClass('input_error');
+            }
+           // console.log(index + ": " + $(this).text());
+
+        });
+
         if (valid == false) {
             $("#error-message-div").html("<p  class='alert alert-danger'> All Fields are required </p>").show();
         }
