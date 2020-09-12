@@ -85,38 +85,7 @@ section.top-bar-section {
 
 
 
-
-
-
-
-
-
-<!--<div class="mobile_view">-->
-<!--    <div class="mobile-menu-area">-->
-<!--        <ul class="mobile-menu">-->
-<!--            <li><i class="fa fa-times" id="close"></i></li>-->
-<!--            <li><a class="nav-link" href="#">Home</a></li>-->
-<!--            <li><a class="nav-link" href="#">Package List</a></li>-->
-<!--            <li><a class="nav-link" href="#">About Us</a></li>-->
-<!--            <li><a class="nav-link" href="#">Order Process</a></li>-->
-<!--            <li><a class="nav-link" href="#">Contact Us</a></li>-->
-<!--            <li><a class="nav-link" href="<?php //echo site_url('Site/about_us'); ?>">about us</a></li>-->
-<!--            <li><a class="nav-link" href="<?php //echo site_url('Site/contact_us') ?>">contact us</a></li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    <div class="sticky-area-mobile-view">-->
-<!--        <div class="mobile-menu-btn">-->
-<!--            <i class="fa fa-bars"></i>-->
-<!--        </div>-->
-<!--        <div class="phone">-->
-<!--            <i class="fa fa-phone"></i> <?php //echo $settings->phone; ?>-->
-<!--        </div>-->
-<!--        <div class="email">-->
-<!--            <i class="fa fa-envelope"></i> <?php //echo $settings->email; ?>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--mobile header start-->
+ 
 <div class="mobile-header">
     <div class="container">
         <div class="row">
@@ -172,7 +141,7 @@ section.top-bar-section {
                         <li><a href="<?php echo base_url();?>#slider_section">Home</a></li>
                         <li><a href="<?php echo base_url();?>#about_us_section">About Us</a></li>
                         <li><a href="<?php echo base_url();?>#package_section">Our Menu</a></li>
-                        <li><a href="<?php echo site_url('Site/download'); ?>">Download</a></li>
+                        <li><a href="<?php echo base_url();?>#food_alergy_section">Download</a></li>
                         <li><a href="<?php echo base_url();?>#post_2_setion">FAQ</a></li>
                         <li><a href="<?php echo base_url();?>#contact_us_section">Contact Us</a></li>
                     </ul>
@@ -215,33 +184,7 @@ section.top-bar-section {
                             <li><a href="<?php echo base_url('Site/privacypolicy') ?>">Privacy Policy</a></li>
                             <li><a href="<?php echo base_url('Site/cookiespolicy') ?>">Cookies Policy</a></li>
                         </ul>
-                        <!--<ul class="footer-menu">-->
-                        <!--    <li><a href="<?php echo base_url();?>#slider_section">Home</a></li>-->
-                        <!--    <li><a href="<?php echo base_url();?>#about_us_section">About Us</a></li>-->
-                        <!--    <li><a href="<?php echo base_url();?>#package_section">Our Menu</a></li>-->
-                        <!--    <li><a href="<?php echo base_url();?>#post_2_setion">FAQ</a></li>-->
-                        <!--    <li><a href="<?php echo base_url();?>#contact_us_section">Contact Us</a></li>-->
-                        <!--    <li data-toggle="modal" data-target="#myModal" style="color:#FFF">Privacy Policy</li> -->
-                        <!--    <div class="modal fade" id="myModal" role="dialog">-->
-                        <!--        <div class="modal-dialog">-->
-                                
-                                  <!-- Modal content-->
-                        <!--          <div class="modal-content">-->
-                        <!--            <div class="modal-header">-->
-                                     <!--<button type="button" class="close" data-dismiss="modal" style="float:left;">&times;</button>-->
-                        <!--              <h4 class="modal-title" style="float: left">Our Privacy Policy</h4>-->
-                        <!--            </div>-->
-                        <!--            <div class="modal-body">-->
-                        <!--              <?php echo "<p>".$settings->privacy_policy."</p>"?>-->
-                        <!--            </div>-->
-                        <!--            <div class="modal-footer">-->
-                        <!--              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                        <!--            </div>-->
-                        <!--          </div>-->
-                                  
-                        <!--        </div>-->
-                        <!--      </div>-->
-                        <!--</ul>-->
+                       
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">

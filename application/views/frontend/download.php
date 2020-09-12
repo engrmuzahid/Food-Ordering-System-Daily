@@ -7,7 +7,7 @@
                     <h1 class="text-left">DOWNLOAD OUR MENU</h1>
                 </div>
                 <div class="instruction-content wow fadeInRight">
-                    <p><?php echo $settings->cookies_policy; ?></p>
+                    <a href="<?php echo base_url();?>/assets/menu.pdf" download="SPICE-GURU-MENU" class="btn btn-primary"><i class="fa fa-download"></i> CLICK HERE TO DOWNLOAD </a>
                 </div>
             </div>
             

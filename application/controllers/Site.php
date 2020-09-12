@@ -8,35 +8,34 @@ class Site extends CI_Controller {
         $data['settings'] = $this->Common->get_single_row_information('settings', 'id', 1);
         $data['slider'] = $this->db->get('work_slider')->result();
         $packages = $this->db->select("*")->where('status', 'YES')->get('packages')->result();
-        //   echo "<pre>"; print_r($data['packages']); echo "</pre>"; exit();
         foreach ($packages as $row) {
            //  print_r(date("Y-m-d ".$data['settings']->accepting_time, strtotime("NOW"))); exit();
-            if(date("Y-m-d ".$data['settings']->accepting_time, strtotime($row->default_day)) >= date("Y-m-d H:i", strtotime("NOW"))){
-                
-           $data['packages'][date("Y-m-d",strtotime($row->default_day))] = $row;
-            $data['packages'][date("Y-m-d", strtotime($row->default_day))]->items = $this->db->select('package_items.*, item.has_option')->from("package_items")->join('item', 'item.id=package_items.item_id')->where(array('package_id' => $row->package_id))->order_by('package_items.sort_order','DESC')->get()->result();
-           
-            foreach ($data['packages'][date("Y-m-d", strtotime($row->default_day))]->items as $item) {
-                if (strtoupper($item->has_option) == "YES") {
-                    $data['options'][$item->item_id] = $this->db->select('*')->from("item_option")->where(array("item_id" => $item->item_id))->get()->result();
-                }
-            }
-            }else{
+                if(date("Y-m-d ".$data['settings']->accepting_time, strtotime($row->default_day)) >= date("Y-m-d H:i", strtotime("NOW"))){
+                    
+            $data['packages'][date("Y-m-d",strtotime($row->default_day))] = $row;
+                $data['packages'][date("Y-m-d", strtotime($row->default_day))]->items = $this->db->select('package_items.*, item.has_option')->from("package_items")->join('item', 'item.id=package_items.item_id')->where(array('package_id' => $row->package_id))->order_by('package_items.sort_order','DESC')->get()->result();
             
-            $data['packages'][date("Y-m-d", strtotime("next ".$row->default_day))] = $row;
-            $data['packages'][date("Y-m-d", strtotime("next ".$row->default_day))]->items = $this->db->select('package_items.*, item.has_option')->from("package_items")->join('item', 'item.id=package_items.item_id')->where(array('package_id' => $row->package_id))->order_by('package_items.sort_order','DESC')->get()->result();
-           // print_r($this->db->last_query());exit();
-            foreach ($data['packages'][date("Y-m-d", strtotime("next ".$row->default_day))]->items as $item) {
-                if (strtoupper($item->has_option) == "YES") {
-                    $data['options'][$item->item_id] = $this->db->select('*')->from("item_option")->where(array("item_id" => $item->item_id))->get()->result();
+                foreach ($data['packages'][date("Y-m-d", strtotime($row->default_day))]->items as $item) {
+                    if (strtoupper($item->has_option) == "YES") {
+                        $data['options'][$item->item_id] = $this->db->select('*')->from("item_option")->where(array("item_id" => $item->item_id))->get()->result();
+                    }
+                }
+                }else{
+                
+                $data['packages'][date("Y-m-d", strtotime("next ".$row->default_day))] = $row;
+                $data['packages'][date("Y-m-d", strtotime("next ".$row->default_day))]->items = $this->db->select('package_items.*, item.has_option')->from("package_items")->join('item', 'item.id=package_items.item_id')->where(array('package_id' => $row->package_id))->order_by('package_items.sort_order','DESC')->get()->result();
+            // print_r($this->db->last_query());exit();
+                foreach ($data['packages'][date("Y-m-d", strtotime("next ".$row->default_day))]->items as $item) {
+                    if (strtoupper($item->has_option) == "YES") {
+                        $data['options'][$item->item_id] = $this->db->select('*')->from("item_option")->where(array("item_id" => $item->item_id))->get()->result();
+                    }
                 }
             }
-        }
         }
         ksort($data['packages']);
         $extra_packages= $this->db->select("*")->where('status', 'NO')->get('packages')->result();
-        $i =9;
-        foreach ($packages as $row) {
+        $i =0;
+        foreach ($extra_packages as $row) {
             
              $data['extra_packages'][$i]  = $row;
              $data['extra_packages'][$i]->items = $this->db->select('package_items.*, item.has_option')->from("package_items")->join('item', 'item.id=package_items.item_id')->where(array('package_id' => $row->package_id))->order_by('package_items.sort_order','DESC')->get()->result();
@@ -45,6 +44,7 @@ class Site extends CI_Controller {
                      $data['options'][$item->item_id] = $this->db->select('*')->from("item_option")->where(array("item_id" => $item->item_id))->get()->result();
                  }
              }
+             $i++;
        
          }
         //echo "<pre>"; print_r($data['packages']); echo "</pre>"; exit();
@@ -281,6 +281,7 @@ class Site extends CI_Controller {
         $street = trim($this->input->post('street')); 
         $postcode = trim($this->input->post('postcode'));
         $payment_method = $this->input->post('payment_method');
+        $city = "";
 
         if (!$f_name || !$email || !$phone || !$payment_method) {
             redirect('Site/checkout');
@@ -299,7 +300,6 @@ class Site extends CI_Controller {
         );
 
         $customer_id = $this->Common->set_data('customer', $customer_data);
-
         $order_data = array(
             'customer_id' => $customer_id,
             'delivery_address' => $address,
@@ -315,8 +315,8 @@ class Site extends CI_Controller {
             'cart_items' => json_encode(array_values(unserialize($this->session->userdata('cart')))),
             'comments' => trim($this->input->post('comments')),
         );
+
         $order_id = $this->Common->set_data('final_orders', $order_data);
-        
         $session_cart = json_encode(array_values(unserialize($this->session->userdata('cart'))));
         $cart =(array)json_decode($session_cart);
         for ($i = 0; $i < count($cart); $i++) 
@@ -328,7 +328,7 @@ class Site extends CI_Controller {
                 'package_name' => $cart[$i]->package_name,
                 'package_details' => json_encode($cart[$i]->package_items),
                 'qty' => $cart[$i]->qty,
-                'delivery_address' => $delivery_address,
+                'delivery_address' => $address,
                 'delivery_date' => $delivery_date_time[0],
                 'delivery_time' => $delivery_date_time[1],
             );
@@ -359,9 +359,7 @@ class Site extends CI_Controller {
              require_once(APPPATH . 'third_party/StripePayment.php');
              
             $stripePayment = new StripePayment();
-
             $stripeResponse = $stripePayment->chargeAmountFromCard($_POST);
-
             if ($stripeResponse['amount_refunded'] == 0 && empty($stripeResponse['failure_code']) && $stripeResponse['paid'] == 1 && $stripeResponse['captured'] == 1 && $stripeResponse['status'] == 'succeeded') {
                 $successMessage = "DONE";//"Stripe payment is completed successfully. The TXN ID is " . $stripeResponse["balance_transaction"];
             }

@@ -214,7 +214,7 @@ if (null !== $this->session->userdata('cart')) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group form-custom-style">
-                                    <label for="f_name">First Name *</label>
+                                    <label for="f_name">Name *</label>
                                     <input type="text" class="form-control" name="f_name" id="f_name" required="">
                                 </div>
                             </div>
@@ -313,8 +313,6 @@ if (null !== $this->session->userdata('cart')) {
                     <ul class="cart">
                         <li>total items<span><?php echo $total_item ?></span></li>
                         <li>total Amount<span>£<?php echo number_format($total, 2); ?> </span></li>
-                        <!---<li>Shipping cost<span>£0.00</span></li>
-                        <li>product tax<span>£0.00</span></li>-->
                         <li>grand
                             total<span>£<?php echo number_format($total + $shipping_cost + $product_tax, 2); ?></span>
                         </li>

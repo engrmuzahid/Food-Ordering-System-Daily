@@ -53,13 +53,13 @@
 <!--about us section end-->
 
 <!--food alergy section start-->
-<section class="food-alergy-section section-padding wow fadeInUp">
+<section class="food-alergy-section section-padding wow fadeInUp" style="background: #fff;">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-md-offset-3">
+            <div class="col-md-10 col-sm-10 offset-md-1">
                 <div class="food-alergy-thumb text-center w-100 wow slideInLeft">
                 
-                    <video height="350" autoplay>
+                    <video width="860" autoplay>
                     <source src="<?= base_url(); ?>assets/videos/video.mp4" type="video/mp4"> 
                     </video>
                        </div>
@@ -378,9 +378,7 @@
             </div>
         </div>
     </div>
-</section>
-<!--instruction section end-->
-<!---------------------contact us section start ---------------------------------->
+</section> 
 <section id="contact_us_section" class="contact-us-section section-padding">
         <div class="overlay-bg"></div>
     <div class="container">
@@ -399,13 +397,13 @@
                             <div class="col-md-6">
                                 <div class="form-group form-custom-style">
                                     <label for="f-name">First Name</label>
-                                    <input required=""  type="text" class="form-control" name="f_name" placeholder="Ex: John">
+                                    <input required=""  type="text" class="form-control" name="f_name" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-custom-style">
                                     <label for="l-name">Last Name</label>
-                                    <input type="text" class="form-control" name="l_name" placeholder="Ex: Doe">
+                                    <input type="text" class="form-control" name="l_name">
                                 </div>
                             </div>
                         </div>
@@ -413,13 +411,11 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
-                                    <input required="" type="email" class="form-control" name="email"
-                                           placeholder="Ex: example@gmail.com">
+                                    <input required="" type="email" class="form-control" name="email">
                                 </div>
                                 <div class="form-group">
                                     <label for="message">Your Message</label>
-                                    <textarea required="" class="form-control" name="message" rows="3"
-                                              placeholder="Write Your Message here..."></textarea>
+                                    <textarea required="" class="form-control" name="message" rows="3"></textarea>
                                 </div>
                                 <div class="submit-section">
                                     <button type="submit" class="submit-btn">Send</button>
@@ -482,15 +478,34 @@
 
 <!--food alergy section start-->
 <section class="food-alergy-section section-padding wow fadeInUp" id="food_alergy_section">
-    <div class="container">
+<div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="food-alergy-thumb text-left w-100 wow slideInLeft">
-                    <img  style="box-shadow: 0 0 10px #999; border: 2px solid var(--theme-color);" src="<?php echo base_url();?>/assets/images/food_alergy_1.jpg" alt="">
+            <div class="col-md-6 offset-md-3">
+                <div class="section-title text-center wow fadeInLeft">
+                    <h1 class="text-left">DOWNLOAD OUR MENU</h1>
+                </div>
+                <div class="instruction-content wow fadeInRight">
+                    <a href="<?php echo base_url();?>/assets/menu.pdf" download="SPICE-GURU-MENU" class="btn btn-primary"><i class="fa fa-download"></i> CLICK HERE TO DOWNLOAD </a>
                 </div>
             </div>
-            </div>
+            
+        <!--food alergy section start-->
+            <section class="food-alergy-section section-padding wow fadeInUp" id="food_alergy_section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="food-alergy-thumb text-left w-100 wow slideInLeft">
+                                <img  style="box-shadow: 0 0 10px #999; border: 2px solid var(--theme-color);" src="<?php echo base_url();?>/assets/images/food_alergy_1.jpg" alt="">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <!--food alergy section end-->
+            
         </div>
+    </div>
     </div>
 </section>
 <!--food alergy section end-->
