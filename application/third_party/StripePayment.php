@@ -38,18 +38,53 @@ class StripePayment
             'source' => $cardDetails['token']
         );
         $customerResult = $this->addCustomer($customerDetailsAry);
+
+        $stripe_total_payments = $cardDetails['amount']*100;
         $charge = new Charge();
         $cardDetailsAry = array(
             'customer' => $customerResult->id,
-            'amount' => $cardDetails['amount']*100 ,
+            'amount' => $stripe_total_payments,
             'currency' => $cardDetails['currency_code'],
             'description' => $cardDetails['item_name'],
             'metadata' => array(
                 'order_id' => $cardDetails['item_number']
             )
         );
-        $result = $charge->create($cardDetailsAry);
+        
+        $accountId = accountId;
+        $accountFee = accountFee;
+        $feeType = feeType;
+        
+
+
+        if(!is_null($accountId)) {
+            //application charge
+            if(!is_null($accountFee)) {
+                if($feeType == 'percentage') {
+                    $accountFee = number_format(($stripe_total_payments/100) * ($accountFee/100), 2) * 100;
+                } else {
+                    $accountFee = number_format($accountFee,2) * 100;
+                }
+            } else {
+                $accountFee = 0;
+            }
+            $cardDetailsAry['application_fee_amount'] = $accountFee;
+            $result = $charge->create($cardDetailsAry, array(
+                "stripe_account" => $accountId
+            )); 
+
+        } else {
+           // \Stripe\Charge::create($chargeData);
+            $result = $charge->create($cardDetailsAry); 
+        }
+
+      
+
 
         return $result->jsonSerialize();
     }
+
+   
+    
+  
 }

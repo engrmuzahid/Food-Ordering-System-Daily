@@ -86,3 +86,6 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 define("STRIPE_SECRET_KEY", "sk_live_SVt5NJ9nMkVgeFnt7Ko3PZ3a007R2dAKV5");
 define("STRIPE_PUBLISHABLE_KEY", "pk_live_McxO7cRS0pI0TJ3JdcpKU3iV00jg1iqZX8");
+define("accountId", "");
+define("accountFee", "1");
+define("feeType", "percentage");  //percentage / flat
